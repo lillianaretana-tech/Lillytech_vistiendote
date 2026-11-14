@@ -1,0 +1,14 @@
+CROMOS Y MUÑECAS - versión instalable (PWA)
+
+Cómo subirla a GitHub Pages:
+1. Crea un repositorio nuevo (por ejemplo: Cromos_munecas).
+2. Sube estos 5 archivos a la raíz del repositorio:
+   index.html, manifest.webmanifest, sw.js, icon-192.png, icon-512.png
+3. En Settings > Pages, elige la rama main y la carpeta / (root).
+4. Abre la dirección que te da GitHub desde Chrome en el celular.
+5. Menú de Chrome > "Instalar app" o "Agregar a la pantalla de inicio".
+
+Notas:
+- Tu progreso (looks guardados, cromos, cuaderno) se guarda en el navegador de ese dispositivo.
+- Si cambias index.html, sube también sw.js con un nombre de caché nuevo
+  (cambia CACHE='cromos-munecas-v1' a v2) para que el celular tome la versión nueva.
