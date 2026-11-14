@@ -6,7 +6,7 @@
 <title>Cromos y Muñecas 1975</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Karla:wght@400;600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shrikhand&family=Karla:wght@400;600;800&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
 <style>
 :root{
   /* Idea: aguacate y mostaza de 1975; hojas de papel crema sobre fondo verde. Una sola paleta, sin tema oscuro. */
@@ -42,10 +42,11 @@ h3{margin:0 0 8px;font-size:15px;text-transform:uppercase;letter-spacing:.06em;c
 .doll-wrap{display:grid;gap:16px;grid-template-columns:1fr;align-items:start}
 @media(min-width:820px){.doll-wrap{grid-template-columns:360px 1fr}}
 .stage{border-radius:6px;border:3px solid #fff;box-shadow:0 0 0 1px #0002,0 6px 0 #0003;padding:6px;position:relative;transition:background .2s}
-.bg0{background:#fffaeb}
-.bg1{background:repeating-linear-gradient(90deg,#fbe3a1 0 22px,#f7c9a0 22px 44px,#f2b3a0 44px 66px)}
-.bg2{background:radial-gradient(circle at 25% 25%,#e5698f 0 5px,transparent 6px) 0 0/44px 44px,radial-gradient(circle at 75% 75%,#eeab1f 0 5px,transparent 6px) 0 0/44px 44px,#fff3d6}
-.bg3{background:radial-gradient(#fffc 2px,transparent 3px) 0 0/20px 20px,#cfe3c4}
+.bg0{background:linear-gradient(160deg,#f4ecff,#ffe3ef)}
+.bg1{background:linear-gradient(160deg,#dff8ee,#cfeeff)}
+.bg2{background:linear-gradient(175deg,#ffd7a8,#ff9fb8 55%,#a78bfa)}
+.bg3{background:radial-gradient(circle at 50% 28%,#5b3bc4,#17102e 80%)}
+.bg4{background:#fff}
 .stage svg{display:block;width:100%;height:auto;max-height:68vh}
 .piece{filter:drop-shadow(1px 1.5px 0 rgba(0,0,0,.28))}
 .bgs{display:flex;gap:8px;justify-content:center;margin:12px 0 4px}
@@ -144,10 +145,21 @@ body.dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}
 @keyframes snap{0%{transform:translateY(-16px) scale(1.05);opacity:.3}60%{transform:translateY(2px);opacity:1}100%{transform:none}}
 @media(pointer:coarse){.items{display:flex;overflow-x:auto;padding-bottom:6px}.item{flex:none;width:96px;touch-action:pan-x}}
 @media(max-width:819px){.stage svg{max-height:46vh}}
+body.modern{--bg:#241a4a;--bg2:#1a1236;--paper:#ffffff;--paper2:#ece6ff;--ink:#241a3d;--mustard:#ffd23f;--orange:#ff5c93;--teal:#7a5cff;--brown:#4a3aa0;--display:'Outfit',system-ui,sans-serif}
+body.modern h1{font-weight:800;letter-spacing:-.02em;text-shadow:3px 3px 0 #ff5c93,6px 6px 0 #4a3aa0}
+body.modern h2{font-weight:800}
+body.modern .sub{color:#d8ccff}
+body.modern .stripes{background:linear-gradient(90deg,#ff5c93,#ffd23f,#4fe0c0,#7a5cff)}
+body.modern .maintabs button{color:#d8ccff}
+body.modern .maintabs button[aria-selected=true]{color:var(--ink)}
+body.modern .item{background:#fff;border-color:var(--paper2)}
+body.modern .item[aria-pressed=true]{background:#ffe9f1}
+body.modern .muted,body.modern .hint{color:#6c5f94}
+body.modern .swatches .orig{background:#fff}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </head>
-<body>
+<body class="modern">
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
 <filter id="cut" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="dilate" radius="3" result="d"/><feFlood flood-color="#fffdf4"/><feComposite in2="d" operator="in" result="w"/><feMerge><feMergeNode in="w"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
 <filter id="cutgold" x="-20%" y="-20%" width="140%" height="140%" color-interpolation-filters="sRGB"><feMorphology in="SourceAlpha" operator="dilate" radius="3.4" result="d"/><feFlood flood-color="#f6d56a"/><feComposite in2="d" operator="in" result="w"/><feMerge><feMergeNode in="w"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
@@ -160,7 +172,7 @@ body.dragging{user-select:none;-webkit-user-select:none;cursor:grabbing}
   </header>
 
   <div class="maintabs" role="tablist" aria-label="Elige un juego">
-    <button role="tab" id="tab-doll" aria-selected="true" data-main="doll">Muñecas de vestir</button>
+    <button role="tab" id="tab-doll" aria-selected="true" data-main="doll">Muñeca de moda</button>
     <button role="tab" id="tab-cromos" aria-selected="false" data-main="cromos">Cromos de picar</button>
   </div>
 
@@ -281,9 +293,9 @@ function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('on');
    MUÑECAS
    ====================================================== */
 const SKIN=['#f8dcc3','#eab98f','#c98a57','#8d5a35','#5e3b25'];
-const HAIRC=['#2b1b12','#6b3a1e','#b8561b','#e2b44c','#b3262d','#9aa0a6'];
+const HAIRC=['#2b1b12','#6b3a1e','#b8561b','#e2b44c','#b3262d','#9aa0a6','#f28fb5','#8f7be6','#4fc3d9','#f7e7b4'];
 const PALETA=['#e8742a','#f2b134','#7a9a2e','#2f7d6d','#e5698f','#8a4fa0','#c1272d','#fbf1d6','#3b6ea5','#6a3b1c'];
-const BGS=['Blanco','Rayas','Flores','Lunares'];
+const BGS=['Estudio','Menta','Atardecer','Neón','Blanco'];
 
 const tS=c=>`<g fill="${shade(c,-28)}" stroke="rgba(0,0,0,.25)" stroke-width=".6"><rect x="62" y="106" width="11" height="14" rx="2"/><rect x="127" y="106" width="11" height="14" rx="2"/></g>`;
 const tW=c=>`<g fill="${shade(c,-28)}" stroke="rgba(0,0,0,.25)" stroke-width=".6"><rect x="68" y="166" width="11" height="14" rx="2"/><rect x="121" y="166" width="11" height="14" rx="2"/></g>`;
@@ -303,7 +315,11 @@ vestido:[
  {n:'Camisero',c:'#4f79b3',e:'h',d:c=>{const p='M74 106 Q100 100 126 106 L122 170 L140 252 Q100 260 60 252 L78 170Z';return `<g class="piece">${tS(c)}<path d="${p}" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M100 120 V256" stroke="${ol(c)}" stroke-width="1"/><path d="M80 170 H120" stroke="${shade(c,-55)}" stroke-width="4"/><path d="M88 104 L100 120 L112 104" fill="${shade(c,25)}" stroke="${ol(c)}" stroke-width="1"/>${[134,196,222].map(y=>`<circle cx="100" cy="${y}" r="1.6" fill="${ol(c)}"/>`).join('')}</g>`;}},
  {n:'Vestido midi',c:'#2f7d6d',e:'h',d:c=>`<g class="piece"><path d="M82 122 Q100 130 118 122 L117 170 L128 292 Q100 300 72 292 L83 170Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M86 124 L90 104 M114 124 L110 104" stroke="${c}" stroke-width="3" stroke-linecap="round"/><path d="M118 230 L124 292" stroke="${ol(c)}" stroke-width=".8"/></g>`},
  {n:'Enterizo',c:'#c1272d',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M76 106 Q100 100 124 106 L122 170 L124 238 L132 350 L102 350 L100 236 L98 350 L68 350 L76 238 L78 170Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2" stroke-linejoin="round"/><path d="M78 168 H122" stroke="${ol(c)}" stroke-width="4"/><path d="M88 106 L100 124 L112 106" fill="none" stroke="${ol(c)}" stroke-width="1.3"/></g>`},
- {n:'Vestido de gala',c:'#8a4fa0',e:'h',d:c=>{const p='M76 108 Q100 100 124 108 L120 170 L128 250 Q150 330 160 346 Q100 356 40 346 Q50 330 72 250 L80 170Z';return `<g class="piece">${tS(c)}<path d="${p}" fill="${c}"/>${dotted(`<path d="${p}"/>`,30,112,170,350,shade(c,70))}<path d="${p}" fill="none" stroke="${ol(c)}" stroke-width="1.2"/><path d="M80 170 H120" stroke="${ol(c)}" stroke-width="3"/></g>`;}}
+ {n:'Vestido de gala',c:'#8a4fa0',e:'h',d:c=>{const p='M76 108 Q100 100 124 108 L120 170 L128 250 Q150 330 160 346 Q100 356 40 346 Q50 330 72 250 L80 170Z';return `<g class="piece">${tS(c)}<path d="${p}" fill="${c}"/>${dotted(`<path d="${p}"/>`,30,112,170,350,shade(c,70))}<path d="${p}" fill="none" stroke="${ol(c)}" stroke-width="1.2"/><path d="M80 170 H120" stroke="${ol(c)}" stroke-width="3"/></g>`;}},
+ {n:'Ajustado',c:'#1f1f2b',e:'h',d:c=>`<g class="piece"><path d="M80 120 Q100 128 120 120 L119 170 Q125 200 124 242 Q100 250 76 242 Q75 200 81 170Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M85 122 L88 104 M115 122 L112 104" stroke="${c}" stroke-width="2.6" stroke-linecap="round"/><path d="M88 134 Q100 140 112 134" stroke="${shade(c,35)}" stroke-width="1" fill="none"/></g>`},
+ {n:'De flores',c:'#fbe4ee',e:'h',d:c=>{const p='M82 118 Q100 126 118 118 L120 168 L144 270 Q100 282 56 270 L80 168Z';let f='';for(let i=0;i<14;i++){const x=64+((i*37)%72),y=176+((i*53)%88);f+=`<circle cx="${x}" cy="${y}" r="3" fill="#ef6f9a"/><circle cx="${x}" cy="${y}" r="1" fill="#ffd23f"/>`;}const k=uid();return `<g class="piece"><clipPath id="${k}"><path d="${p}"/></clipPath><path d="${p}" fill="${c}"/><g clip-path="url(#${k})">${f}</g><path d="${p}" fill="none" stroke="${ol(c)}" stroke-width="1.1"/><path d="M86 120 L90 104 M114 120 L110 104" stroke="${shade(c,-30)}" stroke-width="2.4" stroke-linecap="round"/><path d="M80 168 H120" stroke="${shade(c,-35)}" stroke-width="3"/></g>`;}},
+ {n:'Camisetón',c:'#c9c4e8',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M72 106 Q100 100 128 106 L132 236 Q100 244 68 236Z M72 106 L52 116 L50 144 L74 146Z M128 106 L148 116 L150 144 L126 146Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M92 150 H108 M92 156 H104" stroke="${shade(c,-40)}" stroke-width="2.4" stroke-linecap="round"/><path d="M88 104 Q100 112 112 104" fill="none" stroke="${ol(c)}" stroke-width="1.4"/></g>`},
+ {n:'Vestido sudadera',c:'#6b5bd6',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M72 106 Q100 100 128 106 L134 230 Q100 238 66 230Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/>${sleeves(c,true)}<path d="M76 104 Q100 88 124 104 Q100 120 76 104Z" fill="${shade(c,-22)}" stroke="${ol(c)}" stroke-width="1"/><path d="M95 112 V136 M105 112 V136" stroke="#fff" stroke-width="1.6"/><path d="M84 176 H116 L120 200 H80Z" fill="${shade(c,-12)}" stroke="${ol(c)}" stroke-width="1"/></g>`}
 ],
 top:[
  {n:'Blusa campana',c:'#f2b134',d:c=>`<g class="piece">${tS(c)}<path d="M76 106 Q100 100 124 106 L122 174 L78 174Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M72 106 L60 112 L32 192 L66 198 L78 146Z M128 106 L140 112 L168 192 L134 198 L122 146Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M88 106 Q100 122 112 106" fill="none" stroke="${ol(c)}" stroke-width="1.5"/></g>`},
@@ -317,7 +333,16 @@ top:[
  {n:'Camisa a cuadros',c:'#c1272d',e:'x',d:c=>{const p='M72 106 Q100 100 128 106 L128 184 L72 184Z M70 106 L62 112 L44 194 L58 198 L78 130Z M130 106 L138 112 L156 194 L142 198 L122 130Z';return `<g class="piece">${tS(c)}<path d="${p}" fill="${c}"/>${plaid(`<path d="${p}"/>`,'#1c1c1c')}<path d="${p}" fill="none" stroke="${ol(c)}" stroke-width="1.2"/><path d="M100 108 V184" stroke="${ol(c)}" stroke-width="1"/><path d="M86 104 L100 120 L114 104" fill="${shade(c,20)}" stroke="${ol(c)}" stroke-width="1"/></g>`;}},
  {n:'Suéter grande',c:'#d9a27a',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M68 106 Q100 100 132 106 L134 190 L66 190Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M68 106 L58 112 L34 196 L58 204 L72 150Z M132 106 L142 112 L166 196 L142 204 L128 150Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M66 182 H134 M66 186 H134" stroke="${shade(c,-30)}" stroke-width="1"/><path d="M80 120 V176 M90 120 V176 M100 120 V176 M110 120 V176 M120 120 V176" stroke="${shade(c,-15)}" stroke-width=".8"/><path d="M86 104 Q100 116 114 104" fill="none" stroke="${ol(c)}" stroke-width="1.5"/></g>`},
  {n:'Camiseta corazón',c:'#fbf1d6',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M72 106 Q100 100 128 106 L126 176 L74 176Z M72 106 L54 114 L50 140 L74 142Z M128 106 L146 114 L150 140 L126 142Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M100 150 C84 138 90 126 100 134 C110 126 116 138 100 150Z" fill="#e5698f"/></g>`},
- {n:'Chaleco croché',c:'#c98a57',e:'r',d:c=>{let f='';for(let x=76;x<=124;x+=6)f+=`<path d="M${x} 176 V190" stroke="${c}" stroke-width="1.6"/>`;return `<g class="piece">${tS(c)}<path d="M74 106 L92 104 L100 140 L108 104 L126 106 L124 176 L76 176Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/>${f}<path d="M82 120 L88 126 L82 132 L88 138 M118 120 L112 126 L118 132 L112 138" stroke="${shade(c,-35)}" stroke-width="1" fill="none"/></g>`;}}
+ {n:'Chaleco croché',c:'#c98a57',e:'r',d:c=>{let f='';for(let x=76;x<=124;x+=6)f+=`<path d="M${x} 176 V190" stroke="${c}" stroke-width="1.6"/>`;return `<g class="piece">${tS(c)}<path d="M74 106 L92 104 L100 140 L108 104 L126 106 L124 176 L76 176Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/>${f}<path d="M82 120 L88 126 L82 132 L88 138 M118 120 L112 126 L118 132 L112 138" stroke="${shade(c,-35)}" stroke-width="1" fill="none"/></g>`;}},
+ {n:'Camiseta oversize',c:'#f4f4f8',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M70 106 Q100 100 130 106 L130 178 L70 178Z M70 106 L50 118 L46 146 L72 148Z M130 106 L150 118 L154 146 L128 148Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M88 104 Q100 112 112 104" fill="none" stroke="${ol(c)}" stroke-width="1.4"/><path d="M84 138 H116 M84 145 H110 M84 152 H114" stroke="#7a5cff" stroke-width="2.4" stroke-linecap="round"/></g>`},
+ {n:'Body',c:'#2b2b3a',e:'h',d:c=>`<g class="piece"><path d="M76 106 Q100 100 124 106 L120 170 Q123 190 124 210 L76 210 Q77 190 80 170Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/>${sleeves(c,false)}<path d="M88 106 Q100 126 112 106" fill="none" stroke="${shade(c,40)}" stroke-width="1.2"/></g>`},
+ {n:'Top deportivo',c:'#7a5cff',e:'h',d:c=>`<g class="piece"><path d="M80 120 Q100 128 120 120 L119 146 Q100 152 81 146Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M86 122 L92 104 M114 122 L108 104" stroke="${c}" stroke-width="5" stroke-linecap="round"/><path d="M82 142 Q100 148 118 142" stroke="#fff" stroke-width="2.2" fill="none"/></g>`},
+ {n:'Camiseta de tirantes',c:'#ffd23f',e:'h',d:c=>`<g class="piece"><path d="M78 118 Q100 126 122 118 L122 176 L78 176Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M84 120 L88 104 M116 120 L112 104" stroke="${c}" stroke-width="4" stroke-linecap="round"/><path d="M86 130 V174 M93 130 V174 M100 130 V174 M107 130 V174 M114 130 V174" stroke="${shade(c,-25)}" stroke-width=".8"/></g>`},
+ {n:'Cárdigan',c:'#cdb4f6',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M72 106 Q100 100 128 106 L128 196 L72 196Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/>${sleeves(c,true)}<rect x="94" y="106" width="12" height="90" fill="#f4f4f8" opacity=".95"/><path d="M94 106 V196 M106 106 V196" stroke="${ol(c)}" stroke-width="1"/>${[124,142,160,178].map(y=>`<circle cx="100" cy="${y}" r="1.6" fill="${shade(c,-45)}"/>`).join('')}</g>`},
+ {n:'Chaqueta bomber',c:'#2f6a57',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M72 106 Q100 100 128 106 L130 180 L70 180Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/>${sleeves(c,true)}<path d="M100 104 V180" stroke="${ol(c)}" stroke-width="1.4"/><rect x="70" y="174" width="60" height="8" rx="2" fill="${shade(c,-20)}"/><path d="M88 104 L100 112 L112 104" fill="${shade(c,-15)}" stroke="${ol(c)}"/><path d="M82 136 H90" stroke="#ff5c93" stroke-width="2.4"/></g>`},
+ {n:'Plumífero',c:'#ff7aa8',e:'h',d:c=>{let q='';for(let y=122;y<190;y+=17)q+=`<path d="M70 ${y} H130" stroke="${shade(c,-40)}" stroke-width="1.3"/>`;return `<g class="piece">${tS(c)}<path d="M68 106 Q100 100 132 106 L134 192 L66 192Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/>${q}<path d="M68 108 L58 114 L38 194 L58 200 L74 148Z M132 108 L142 114 L162 194 L142 200 L126 148Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M50 150 L66 156 M44 172 L62 178 M150 150 L134 156 M156 172 L138 178" stroke="${shade(c,-40)}" stroke-width="1.3"/><path d="M100 104 V192" stroke="${ol(c)}"/><rect x="88" y="98" width="24" height="12" rx="5" fill="${shade(c,-12)}" stroke="${ol(c)}"/></g>`;}},
+ {n:'Camisa blanca',c:'#f4f4f8',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M70 106 Q100 100 130 106 L132 190 L68 190Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/>${sleeves(c,true)}<path d="M100 112 V190" stroke="${ol(c)}" stroke-width="1"/><path d="M86 104 L100 120 L114 104" fill="${shade(c,-6)}" stroke="${ol(c)}" stroke-width="1"/>${[130,150,170].map(y=>`<circle cx="100" cy="${y}" r="1.5" fill="${shade(c,-45)}"/>`).join('')}</g>`},
+ {n:'Sudadera corta',c:'#ff5c93',e:'h',d:c=>`<g class="piece">${tS(c)}<path d="M72 106 Q100 100 128 106 L128 160 L72 160Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/>${sleeves(c,true)}<path d="M76 104 Q100 88 124 104 Q100 120 76 104Z" fill="${shade(c,-22)}" stroke="${ol(c)}" stroke-width="1"/><path d="M95 112 V132 M105 112 V132" stroke="#fff" stroke-width="1.6"/><rect x="72" y="154" width="56" height="6" fill="${shade(c,-25)}"/></g>`}
 ],
 bottom:[
  {n:'Mini plisada',c:'#2f7d6d',d:c=>`<g class="piece">${tW(c)}<path d="M80 166 L120 166 L136 224 Q100 232 64 224Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M88 168 L82 226 M96 168 L92 228 M104 168 L108 228 M112 168 L118 226" stroke="${ol(c)}" stroke-width=".8" fill="none"/></g>`},
@@ -329,7 +354,15 @@ bottom:[
  {n:'Falda de mezclilla',c:'#4f79b3',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M80 166 L120 166 L130 216 L70 216Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M82 172 H118 M100 172 V216" stroke="${shade(c,45)}" stroke-width="1" stroke-dasharray="2.5 2"/><rect x="104" y="184" width="12" height="12" fill="none" stroke="${shade(c,45)}" stroke-width="1"/></g>`},
  {n:'Bermudas cargo',c:'#7a9a2e',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M79 166 L101 166 L100 230 L99 266 L75 266 L79 230Z M121 166 L99 166 L100 230 L101 266 L125 266 L121 230Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2" stroke-linejoin="round"/><rect x="78" y="212" width="12" height="14" fill="${shade(c,-12)}" stroke="${ol(c)}" stroke-width="1"/><rect x="110" y="212" width="12" height="14" fill="${shade(c,-12)}" stroke="${ol(c)}" stroke-width="1"/></g>`},
  {n:'Pantalón ancho',c:'#f1e2b8',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M80 166 L100 166 L100 232 L100 350 L62 350 L72 232Z M120 166 L100 166 L100 232 L100 350 L138 350 L128 232Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2" stroke-linejoin="round"/><path d="M80 170 H120" stroke="${ol(c)}" stroke-width="3"/></g>`},
- {n:'Falda tubo',c:'#6a3b1c',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M80 166 L120 166 L118 270 L82 270Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M100 270 V236" stroke="${ol(c)}" stroke-width="1.4"/></g>`}
+ {n:'Falda tubo',c:'#6a3b1c',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M80 166 L120 166 L118 270 L82 270Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2"/><path d="M100 270 V236" stroke="${ol(c)}" stroke-width="1.4"/></g>`},
+ {n:'Jeans anchos',c:'#6f95c9',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M78 166 L101 166 L101 230 L100 346 L62 346 L70 230Z M122 166 L99 166 L99 230 L100 346 L138 346 L130 230Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2" stroke-linejoin="round"/><path d="M80 172 H120" stroke="${shade(c,45)}" stroke-width="1" stroke-dasharray="2.5 2"/><path d="M64 336 Q80 340 98 336 M102 336 Q120 340 136 336" stroke="${shade(c,-30)}" stroke-width="1" fill="none"/></g>`},
+ {n:'Jeans mom',c:'#8fb0dc',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M77 158 L101 158 L100 230 L96 340 L78 340 L80 230Z M123 158 L99 158 L100 230 L104 340 L122 340 L120 230Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2" stroke-linejoin="round"/><path d="M78 164 H122 M100 160 V196" stroke="${shade(c,45)}" stroke-width="1" stroke-dasharray="2.5 2"/><circle cx="100" cy="164" r="1.8" fill="#eeab1f"/></g>`},
+ {n:'Pantalón cargo',c:'#8a8f5a',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M78 166 L101 166 L101 230 L100 346 L66 346 L72 230Z M122 166 L99 166 L99 230 L100 346 L134 346 L128 230Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2" stroke-linejoin="round"/><rect x="70" y="236" width="14" height="18" fill="${shade(c,-12)}" stroke="${ol(c)}"/><rect x="116" y="236" width="14" height="18" fill="${shade(c,-12)}" stroke="${ol(c)}"/><path d="M80 172 H120" stroke="${ol(c)}" stroke-width="3"/></g>`},
+ {n:'Joggers',c:'#9a9aae',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M78 166 L101 166 L100 232 L98 330 L76 330 L72 232Z M122 166 L99 166 L100 232 L102 330 L124 330 L128 232Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.2" stroke-linejoin="round"/><rect x="76" y="326" width="22" height="9" rx="3" fill="${shade(c,-25)}"/><rect x="102" y="326" width="22" height="9" rx="3" fill="${shade(c,-25)}"/><path d="M82 168 V326 M118 168 V326" stroke="#fff" stroke-width="1.6" opacity=".7"/></g>`},
+ {n:'Biker shorts',c:'#1f1f2b',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M79 166 L101 166 L100 232 L96 244 L81 244 L80 232Z M121 166 L99 166 L100 232 L104 244 L119 244 L120 232Z" fill="${c}" stroke="${ol(c)}" stroke-width="1" stroke-linejoin="round"/><path d="M80 172 H120" stroke="#ff5c93" stroke-width="2"/></g>`},
+ {n:'Falda de tenis',c:'#f4f4f8',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M80 166 L120 166 L134 210 Q100 218 66 210Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M86 168 L78 212 M94 168 L90 214 M102 168 L102 214 M110 168 L114 214 M116 168 L122 212" stroke="${shade(c,-30)}" stroke-width=".8"/><path d="M80 170 H120" stroke="#7a5cff" stroke-width="3"/></g>`},
+ {n:'Falda satinada',c:'#c9a2f0',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M80 166 L120 166 L142 292 Q100 302 58 292Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M92 170 L84 290 M108 170 L116 290" stroke="${shade(c,40)}" stroke-width="1.6" opacity=".7"/></g>`},
+ {n:'Short de mezclilla',c:'#6f95c9',e:'h',d:c=>`<g class="piece">${tW(c)}<path d="M79 166 L101 166 L100 226 L99 232 L77 232 L79 226Z M121 166 L99 166 L100 226 L101 232 L123 232 L121 226Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1" stroke-linejoin="round"/><path d="M80 172 H120" stroke="${shade(c,45)}" stroke-width="1" stroke-dasharray="2.5 2"/><path d="M78 232 l2 3 M83 232 l1 3 M88 232 l2 3 M93 232 l1 3 M98 232 l1 3 M102 232 l1 3 M108 232 l2 3 M113 232 l1 3 M118 232 l2 3" stroke="${shade(c,50)}" stroke-width=".8"/></g>`}
 ],
 zapatos:[
  {n:'Botas',c:'#6a3b1c',d:c=>`<g class="piece"><path d="M77 296 H97 V344 Q110 346 110 352 H66 Q66 346 77 344Z M123 296 H103 V344 Q90 346 90 352 H134 Q134 346 123 344Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><rect x="64" y="350" width="48" height="9" rx="3" fill="#2b1b12"/><rect x="88" y="350" width="48" height="9" rx="3" fill="#2b1b12"/></g>`},
@@ -338,7 +371,13 @@ zapatos:[
  {n:'Tenis',c:'#fbf1d6',e:'h',d:c=>`<g class="piece"><path d="M76 334 H97 V344 Q109 346 109 352 H68 Q68 346 76 344Z M124 334 H103 V344 Q91 346 91 352 H132 Q132 346 124 344Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><rect x="66" y="350" width="44" height="8" rx="3" fill="#fff" stroke="#9a8f77" stroke-width="1"/><rect x="90" y="350" width="44" height="8" rx="3" fill="#fff" stroke="#9a8f77" stroke-width="1"/><path d="M80 338 H94 M80 342 H94 M106 338 H120 M106 342 H120" stroke="#9a8f77" stroke-width="1"/></g>`},
  {n:'Botines',c:'#b8561b',e:'h',d:c=>`<g class="piece"><path d="M77 318 H97 V344 Q108 346 108 354 H68 Q68 346 77 344Z M123 318 H103 V344 Q92 346 92 354 H132 Q132 346 123 344Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><rect x="68" y="352" width="40" height="7" rx="2" fill="#2b1b12"/><rect x="92" y="352" width="40" height="7" rx="2" fill="#2b1b12"/></g>`},
  {n:'Sandalias',c:'#eeab1f',e:'x',d:c=>`<g class="piece"><rect x="70" y="352" width="30" height="5" rx="2.5" fill="${c}" stroke="${ol(c)}" stroke-width=".8"/><rect x="100" y="352" width="30" height="5" rx="2.5" fill="${c}" stroke="${ol(c)}" stroke-width=".8"/><path d="M76 352 L86 340 L96 352 M104 352 L114 340 L124 352" fill="none" stroke="${c}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>`},
- {n:'Tacones',c:'#c1272d',e:'h',d:c=>`<g class="piece"><path d="M72 344 Q88 336 100 346 L98 354 L70 354Z M128 344 Q112 336 100 346 L102 354 L130 354Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><path d="M92 354 L96 364 L99 364 L98 354Z M108 354 L104 364 L101 364 L102 354Z" fill="${shade(c,-35)}"/></g>`}
+ {n:'Tacones',c:'#c1272d',e:'h',d:c=>`<g class="piece"><path d="M72 344 Q88 336 100 346 L98 354 L70 354Z M128 344 Q112 336 100 346 L102 354 L130 354Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><path d="M92 354 L96 364 L99 364 L98 354Z M108 354 L104 364 L101 364 L102 354Z" fill="${shade(c,-35)}"/></g>`},
+ {n:'Tenis chunky',c:'#f4f4f8',e:'h',d:c=>`<g class="piece"><path d="M74 330 H98 V342 Q112 344 112 352 H66 Q64 340 74 338Z M126 330 H102 V342 Q88 344 88 352 H134 Q136 340 126 338Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M70 346 H100 M100 346 H130" stroke="#7a5cff" stroke-width="3"/><rect x="64" y="350" width="48" height="11" rx="5" fill="#fff" stroke="#aaa6c8"/><rect x="88" y="350" width="48" height="11" rx="5" fill="#fff" stroke="#aaa6c8"/><path d="M80 334 H94 M80 338 H94 M106 334 H120 M106 338 H120" stroke="#aaa6c8" stroke-width="1"/></g>`},
+ {n:'Botas de combate',c:'#2b2b33',e:'h',d:c=>`<g class="piece"><path d="M76 306 H98 V344 Q110 346 110 353 H66 Q66 346 76 344Z M124 306 H102 V344 Q90 346 90 353 H134 Q134 346 124 344Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><rect x="64" y="351" width="48" height="9" rx="2" fill="#111"/><rect x="88" y="351" width="48" height="9" rx="2" fill="#111"/><path d="M78 312 H96 M78 320 H96 M78 328 H96 M104 312 H122 M104 320 H122 M104 328 H122" stroke="#fff" stroke-width="1.2" opacity=".6"/></g>`},
+ {n:'Chancletas',c:'#ff5c93',e:'h',d:c=>`<g class="piece"><rect x="68" y="352" width="34" height="8" rx="4" fill="#fff" stroke="#aaa6c8"/><rect x="98" y="352" width="34" height="8" rx="4" fill="#fff" stroke="#aaa6c8"/><path d="M74 352 Q86 336 98 352Z M102 352 Q114 336 126 352Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/></g>`},
+ {n:'Bailarinas',c:'#f4a6c0',e:'h',d:c=>`<g class="piece"><path d="M72 346 Q86 338 100 348 L98 356 L68 356Z M128 346 Q114 338 100 348 L102 356 L132 356Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><circle cx="84" cy="344" r="2" fill="${shade(c,-40)}"/><circle cx="116" cy="344" r="2" fill="${shade(c,-40)}"/></g>`},
+ {n:'Botas largas',c:'#3b2a22',e:'h',d:c=>`<g class="piece"><path d="M76 262 H98 V344 Q110 346 110 353 H66 Q66 346 76 344Z M124 262 H102 V344 Q90 346 90 353 H134 Q134 346 124 344Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><rect x="64" y="351" width="48" height="8" rx="3" fill="#1a1210"/><rect x="88" y="351" width="48" height="8" rx="3" fill="#1a1210"/><path d="M80 268 H94 M106 268 H120" stroke="${shade(c,35)}" stroke-width="2"/></g>`},
+ {n:'Tenis de plataforma',c:'#ffd23f',e:'h',d:c=>`<g class="piece"><path d="M74 328 H98 V340 Q110 342 110 348 H66 Q66 336 74 336Z M126 328 H102 V340 Q90 342 90 348 H134 Q134 336 126 336Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><rect x="64" y="346" width="48" height="14" rx="4" fill="#fff" stroke="#aaa6c8"/><rect x="88" y="346" width="48" height="14" rx="4" fill="#fff" stroke="#aaa6c8"/><path d="M64 352 H112 M88 352 H136" stroke="#2b2b33" stroke-width="2"/></g>`}
 ],
 sombrero:[
  {n:'Ala ancha',c:'#eeab1f',d:c=>`<g class="piece"><path d="M72 42 Q72 12 100 12 Q128 12 128 42Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><ellipse cx="100" cy="42" rx="56" ry="10" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><rect x="73" y="30" width="54" height="8" fill="${shade(c,-45)}"/></g>`},
@@ -346,7 +385,11 @@ sombrero:[
  {n:'Cintillo',c:'#2f7d6d',d:c=>`<g class="piece"><path d="M73 48 Q100 32 127 48 L127 55 Q100 40 73 55Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><path d="M122 46 L136 38 L134 56Z M122 46 L138 52 L134 36Z" fill="${shade(c,20)}" stroke="${ol(c)}" stroke-width=".8"/></g>`},
  {n:'Gorra',c:'#3b6ea5',e:'h',d:c=>`<g class="piece"><path d="M73 46 Q73 14 100 14 Q127 14 127 46Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M122 42 Q154 40 150 51 Q134 49 122 49Z" fill="${shade(c,-20)}" stroke="${ol(c)}" stroke-width="1"/><circle cx="100" cy="13" r="2.4" fill="${shade(c,-35)}"/><path d="M100 14 V46" stroke="${ol(c)}" stroke-width=".7"/></g>`},
  {n:'Gorro de lana',c:'#e5698f',e:'h',d:c=>`<g class="piece"><path d="M72 44 Q72 10 100 10 Q128 10 128 44Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><rect x="70" y="38" width="60" height="12" rx="5" fill="${shade(c,-18)}" stroke="${ol(c)}" stroke-width="1"/><circle cx="100" cy="8" r="6" fill="${shade(c,25)}" stroke="${ol(c)}" stroke-width=".8"/></g>`},
- {n:'Moño grande',c:'#eeab1f',e:'h',d:c=>`<g class="piece"><path d="M100 34 L78 22 L78 46Z M100 34 L122 22 L122 46Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><circle cx="100" cy="34" r="5" fill="${shade(c,-25)}"/></g>`}
+ {n:'Moño grande',c:'#eeab1f',e:'h',d:c=>`<g class="piece"><path d="M100 34 L78 22 L78 46Z M100 34 L122 22 L122 46Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><circle cx="100" cy="34" r="5" fill="${shade(c,-25)}"/></g>`},
+ {n:'Bucket hat',c:'#e8e2ff',e:'h',d:c=>`<g class="piece"><path d="M74 42 Q74 14 100 14 Q126 14 126 42Z" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M60 52 Q62 40 74 40 L126 40 Q138 40 140 52 Q100 60 60 52Z" fill="${shade(c,-8)}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M74 34 H126" stroke="#7a5cff" stroke-width="3"/></g>`},
+ {n:'Diadema',c:'#f4a6c0',e:'h',d:c=>`<g class="piece"><path d="M72 52 Q72 20 100 20 Q128 20 128 52" fill="none" stroke="${c}" stroke-width="6" stroke-linecap="round"/><path d="M72 52 Q72 20 100 20 Q128 20 128 52" fill="none" stroke="${shade(c,25)}" stroke-width="1.6" stroke-linecap="round"/></g>`},
+ {n:'Scrunchie',c:'#8f7be6',e:'h',d:c=>`<g class="piece"><ellipse cx="100" cy="24" rx="12" ry="6" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><path d="M90 24 Q100 18 110 24 M90 26 Q100 32 110 26" stroke="${shade(c,30)}" stroke-width="1" fill="none"/></g>`},
+ {n:'Pinzas de pelo',c:'#ffd23f',e:'h',d:c=>`<g class="piece"><rect x="70" y="34" width="14" height="5" rx="2.5" fill="${c}" stroke="${ol(c)}" transform="rotate(-20 77 36)"/><rect x="116" y="34" width="14" height="5" rx="2.5" fill="${c}" stroke="${ol(c)}" transform="rotate(20 123 36)"/><rect x="72" y="42" width="12" height="4.5" rx="2.2" fill="#ff5c93" transform="rotate(-20 78 44)"/><rect x="116" y="42" width="12" height="4.5" rx="2.2" fill="#ff5c93" transform="rotate(20 122 44)"/></g>`}
 ],
 extra:[
  {n:'Lentes grandes',c:'#e8742a',z:2,d:c=>`<g class="piece"><circle cx="88" cy="62" r="11" fill="${c}" fill-opacity=".35" stroke="#2b1b12" stroke-width="2.6"/><circle cx="112" cy="62" r="11" fill="${c}" fill-opacity=".35" stroke="#2b1b12" stroke-width="2.6"/><path d="M99 61 H101 M77 60 L70 56 M123 60 L130 56" stroke="#2b1b12" stroke-width="2.4"/></g>`},
@@ -358,12 +401,25 @@ extra:[
  {n:'Aretes',c:'#f2b134',z:2,e:'x',d:c=>`<g class="piece"><path d="M74 70 V78 M126 70 V78" stroke="${shade(c,-40)}" stroke-width="1"/><circle cx="74" cy="82" r="4" fill="${c}" stroke="${ol(c)}" stroke-width=".7"/><circle cx="126" cy="82" r="4" fill="${c}" stroke="${ol(c)}" stroke-width=".7"/></g>`},
  {n:'Bufanda',c:'#c1272d',z:0,e:'h',d:c=>`<g class="piece"><path d="M82 100 Q100 94 118 100 L120 112 Q100 120 80 112Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><path d="M104 112 L118 112 L120 176 L106 178Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><path d="M106 150 L119 148 M106 160 L120 158" stroke="${shade(c,40)}" stroke-width="2"/></g>`},
  {n:'Bolso de mano',c:'#8a4fa0',z:0,e:'h',d:c=>`<g class="piece"><path d="M151 202 Q152 188 160 188 Q168 188 168 202" fill="none" stroke="${shade(c,-30)}" stroke-width="2.4"/><rect x="144" y="202" width="30" height="24" rx="4" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M144 210 H174" stroke="${ol(c)}" stroke-width="1"/></g>`},
- {n:'Corona de flores',c:'#e5698f',z:1,e:'x',d:c=>{let s='';for(let i=0;i<7;i++){const x=76+i*8,y=36-Math.sin(i/6*Math.PI)*8;s+=`<circle cx="${x}" cy="${y.toFixed(1)}" r="4.5" fill="${i%2?c:'#fbf1d6'}" stroke="${ol(c)}" stroke-width=".6"/><circle cx="${x}" cy="${y.toFixed(1)}" r="1.5" fill="#f2b134"/>`;}return `<g class="piece">${s}</g>`;}}
+ {n:'Corona de flores',c:'#e5698f',z:1,e:'x',d:c=>{let s='';for(let i=0;i<7;i++){const x=76+i*8,y=36-Math.sin(i/6*Math.PI)*8;s+=`<circle cx="${x}" cy="${y.toFixed(1)}" r="4.5" fill="${i%2?c:'#fbf1d6'}" stroke="${ol(c)}" stroke-width=".6"/><circle cx="${x}" cy="${y.toFixed(1)}" r="1.5" fill="#f2b134"/>`;}return `<g class="piece">${s}</g>`;}},
+ {n:'Lentes ojo de gato',c:'#ff5c93',z:2,e:'h',d:c=>`<g class="piece"><path d="M76 58 Q88 56 100 60 Q112 56 124 58 Q126 70 116 74 Q104 76 100 66 Q96 76 84 74 Q74 70 76 58Z" fill="#1d120b" fill-opacity=".55" stroke="${c}" stroke-width="2.4" stroke-linejoin="round"/><path d="M76 58 L70 54 M124 58 L130 54" stroke="${c}" stroke-width="2.4" stroke-linecap="round"/></g>`},
+ {n:'Lentes redondos',c:'#d8b45a',z:2,e:'h',d:c=>`<g class="piece"><circle cx="88.5" cy="63" r="10" fill="#9fd8ff" fill-opacity=".25" stroke="${c}" stroke-width="1.6"/><circle cx="111.5" cy="63" r="10" fill="#9fd8ff" fill-opacity=".25" stroke="${c}" stroke-width="1.6"/><path d="M98.5 62 Q100 60 101.5 62 M78.5 62 L73 60 M121.5 62 L127 60" stroke="${c}" stroke-width="1.6" fill="none"/></g>`},
+ {n:'Aros grandes',c:'#f2b134',z:2,e:'h',d:c=>`<g class="piece"><circle cx="74" cy="82" r="7" fill="none" stroke="${c}" stroke-width="2"/><circle cx="126" cy="82" r="7" fill="none" stroke="${c}" stroke-width="2"/></g>`},
+ {n:'Gargantilla',c:'#2b2b33',z:0,e:'h',d:c=>`<g class="piece"><path d="M90 99 Q100 106 110 99" fill="none" stroke="${c}" stroke-width="3.4" stroke-linecap="round"/><circle cx="100" cy="106.5" r="1.8" fill="#f2b134"/></g>`},
+ {n:'Collar con dije',c:'#f2c230',z:0,e:'h',d:c=>`<g class="piece"><path d="M86 104 Q100 134 114 104" fill="none" stroke="${c}" stroke-width="1.4"/><path d="M100 132 l2 4 4 .6 -3 3 .8 4 -3.8 -2 -3.8 2 .8 -4 -3 -3 4 -.6z" fill="${c}" stroke="${ol(c)}" stroke-width=".6"/></g>`},
+ {n:'Bolso cruzado',c:'#7a5cff',z:0,e:'h',d:c=>`<g class="piece"><path d="M126 106 L76 198" stroke="${shade(c,-30)}" stroke-width="3" fill="none"/><rect x="62" y="196" width="30" height="24" rx="6" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M62 204 Q77 214 92 204" fill="none" stroke="${ol(c)}" stroke-width="1"/><circle cx="77" cy="208" r="2" fill="#ffd23f"/></g>`},
+ {n:'Celular',c:'#ff5c93',z:2,e:'h',d:c=>`<g class="piece"><rect x="146" y="176" width="14" height="24" rx="3" fill="${c}" stroke="${ol(c)}" stroke-width="1" transform="rotate(12 153 188)"/><rect x="148.5" y="179" width="9" height="18" rx="1.5" fill="#1d120b" transform="rotate(12 153 188)"/></g>`},
+ {n:'Bubble tea',c:'#e8c9a0',z:2,e:'h',d:c=>`<g class="piece"><path d="M143 184 L157 184 L155 206 L145 206Z" fill="${c}" stroke="${ol(c)}" stroke-width="1"/><rect x="142" y="181" width="16" height="4" rx="2" fill="#fff" stroke="#aaa6c8"/><path d="M152 181 L156 166" stroke="#ff5c93" stroke-width="2.4" stroke-linecap="round"/><circle cx="148" cy="201" r="1.4" fill="#3b2314"/><circle cx="152" cy="202" r="1.4" fill="#3b2314"/><circle cx="150" cy="198" r="1.4" fill="#3b2314"/></g>`},
+ {n:'Pulseras',c:'#ff5c93',z:2,e:'h',d:c=>`<g class="piece"><path d="M44 184 L56 187 M44 188 L56 191" stroke="${c}" stroke-width="2" stroke-linecap="round"/><path d="M144 187 L156 184 M144 191 L156 188" stroke="#7a5cff" stroke-width="2" stroke-linecap="round"/></g>`},
+ {n:'Riñonera',c:'#4fe0c0',z:0,e:'h',d:c=>`<g class="piece"><path d="M72 186 L128 190" stroke="${shade(c,-30)}" stroke-width="4"/><rect x="88" y="184" width="24" height="16" rx="6" fill="${c}" stroke="${ol(c)}" stroke-width="1.1"/><path d="M90 190 H110" stroke="${ol(c)}" stroke-width="1"/><rect x="98" y="189" width="4" height="4" rx="1" fill="#fff"/></g>`},
+ {n:'AirPods',c:'#ffffff',z:2,e:'h',d:c=>`<g class="piece"><ellipse cx="74" cy="68" rx="2.6" ry="3.4" fill="${c}" stroke="#aaa6c8" stroke-width=".7"/><rect x="72.8" y="70" width="2.4" height="9" rx="1.2" fill="${c}" stroke="#aaa6c8" stroke-width=".7"/><ellipse cx="126" cy="68" rx="2.6" ry="3.4" fill="${c}" stroke="#aaa6c8" stroke-width=".7"/><rect x="124.8" y="70" width="2.4" height="9" rx="1.2" fill="${c}" stroke="#aaa6c8" stroke-width=".7"/></g>`}
 ]
 };
 // Etapa: r=retro, h=de hoy, x=sirve en ambas
 Object.keys(ITEMS).forEach(c=>ITEMS[c].forEach(it=>{if(!it.e)it.e='r';}));
 ['Camiseta de rayas','Cuello alto','Zapatitos','Collar de cuentas','Flor en el pelo','Cintillo','Hot pants'].forEach(n=>Object.keys(ITEMS).forEach(c=>ITEMS[c].forEach(it=>{if(it.n===n)it.e='x';})));
+const VBI={"Lentes grandes": "60 48 80 32", "Lentes ojo de gato": "62 46 76 36", "Lentes redondos": "66 48 68 30", "Aros grandes": "60 68 80 28", "Aretes": "66 66 68 24", "Gargantilla": "80 92 40 24", "Collar con dije": "76 98 48 50", "Collar de cuentas": "76 100 48 26", "Bolso cruzado": "56 100 80 126", "Bolso colgante": "40 100 100 134", "Bolso de mano": "136 180 46 52", "Mochila": "66 98 68 86", "Audífonos": "60 12 80 70", "Bufanda": "72 92 56 90", "Celular": "136 166 34 44", "Bubble tea": "132 160 36 52", "Pulseras": "38 176 130 22", "Riñonera": "66 176 68 32", "AirPods": "66 60 68 28", "Corona de flores": "66 20 68 24", "Flor en el pelo": "64 36 24 24", "Scrunchie": "82 14 36 20", "Pinzas de pelo": "62 28 76 24", "Diadema": "64 14 72 44", "Moño grande": "70 14 60 40", "Cintillo": "66 28 80 34", "Bucket hat": "54 8 92 56", "Gorra": "66 8 90 48"};
+Object.keys(ITEMS).forEach(c=>ITEMS[c].forEach(it=>{if(VBI[it.n])it.vb=VBI[it.n];}));
 const VB={vestido:'28 96 144 262',top:'24 92 152 112',bottom:'40 158 120 200',zapatos:'56 290 88 74',sombrero:'34 2 132 62',extra:'26 8 154 224'};
 
 const HAIRS=[
@@ -393,20 +449,57 @@ const HAIRS=[
   front:c=>`<path d="M72 62 Q72 28 100 28 Q128 28 128 62 Q108 36 86 50 Q76 56 72 62Z" fill="${c}"/><path d="M72 62 Q60 96 70 126 Q62 150 70 176 L80 176 Q74 150 82 126 Q72 96 80 68Z M128 62 Q140 96 130 126 Q138 150 130 176 L120 176 Q126 150 118 126 Q128 96 120 68Z" fill="${c}"/>`},
  {n:'Pixie',
   back:c=>`<path d="M68 60 Q66 20 100 20 Q134 20 132 60 Q132 76 124 72 L76 72 Q68 76 68 60Z" fill="${c}"/>`,
-  front:c=>`<path d="M72 60 Q70 24 100 22 Q130 24 128 60 L120 44 L112 52 L102 38 L92 52 L84 42Z" fill="${c}"/>`}
+  front:c=>`<path d="M72 60 Q70 24 100 22 Q130 24 128 60 L120 44 L112 52 L102 38 L92 52 L84 42Z" fill="${c}"/>`},
+ {n:'Cortina',m:1,
+  back:c=>`<path d="M66 58 Q64 18 100 18 Q136 18 134 58 L140 196 Q100 206 60 196Z" fill="${c}"/>`,
+  front:c=>`<path d="M100 26 Q68 26 68 74 Q76 46 100 38 Q124 46 132 74 Q132 26 100 26Z" fill="${c}"/><path d="M70 66 Q58 112 60 180 L74 180 Q74 114 80 72Z M130 66 Q142 112 140 180 L126 180 Q126 114 120 72Z" fill="${c}"/>`},
+ {n:'Dos moños',m:1,
+  back:c=>`<circle cx="68" cy="22" r="13" fill="${c}"/><circle cx="132" cy="22" r="13" fill="${c}"/><path d="M72 56 Q72 22 100 22 Q128 22 128 56Z" fill="${c}"/>`,
+  front:c=>`<path d="M72 62 Q72 28 100 28 Q128 28 128 62 Q116 44 100 42 Q84 44 72 62Z" fill="${c}"/><ellipse cx="74" cy="30" rx="9" ry="4" fill="#ff7aa8" transform="rotate(-25 74 30)"/><ellipse cx="126" cy="30" rx="9" ry="4" fill="#ff7aa8" transform="rotate(25 126 30)"/>`},
+ {n:'Trenzas largas',m:1,
+  back:c=>`<path d="M72 56 Q72 20 100 20 Q128 20 128 56Z" fill="${c}"/>`,
+  front:c=>{let s=`<path d="M72 62 Q72 28 100 28 Q128 28 128 62 Q116 44 100 42 Q84 44 72 62Z" fill="${c}"/>`;const L=[[72,64,58,238],[78,68,68,244],[66,60,48,230]];for(const d of[-1,1])for(const [x0,y0,x1,y1] of L){const xa=d<0?x0:200-x0,xb=d<0?x1:200-x1,q=`M${xa} ${y0} Q${(xa+xb)/2+d*6} ${(y0+y1)/2} ${xb} ${y1}`;s+=`<path d="${q}" stroke="${c}" stroke-width="7" fill="none" stroke-linecap="round"/><path d="${q}" stroke="${shade(c,-45)}" stroke-width="7" fill="none" stroke-dasharray="1.5 4"/><circle cx="${xb}" cy="${y1+2}" r="3" fill="#ffd23f"/>`;}return s;}},
+ {n:'Rizos',m:1,
+  back:c=>{let s='';for(let i=0;i<16;i++){const a=i/16*Math.PI*2;s+=`<circle cx="${(100+Math.cos(a)*40).toFixed(1)}" cy="${(52+Math.sin(a)*38).toFixed(1)}" r="12" fill="${c}"/>`;}for(const d of[-1,1])for(let j=0;j<4;j++)s+=`<circle cx="${100+d*(40+(j%2)*4)}" cy="${78+j*16}" r="11" fill="${c}"/>`;return s;},
+  front:c=>{let s='';for(let i=0;i<6;i++)s+=`<circle cx="${(78+i*8.8).toFixed(1)}" cy="${(36+Math.abs(i-2.5)*1.8).toFixed(1)}" r="8" fill="${c}"/>`;return s;}},
+ {n:'Lob ondulado',m:1,
+  back:c=>`<path d="M66 58 Q64 18 100 18 Q136 18 134 58 Q146 84 138 104 Q146 116 136 130 Q100 140 64 130 Q54 116 62 104 Q54 84 66 58Z" fill="${c}"/>`,
+  front:c=>`<path d="M72 62 Q72 28 100 28 Q128 28 128 62 Q106 38 84 52 Q76 58 72 62Z" fill="${c}"/>`},
+ {n:'Cola alta',m:1,
+  back:c=>`<path d="M104 24 Q152 8 158 54 Q162 98 144 136 Q144 90 128 56 Q116 36 104 24Z" fill="${c}"/>`,
+  front:c=>`<path d="M72 62 Q72 26 100 26 Q128 26 128 62 Q116 42 100 40 Q84 42 72 62Z" fill="${c}"/><ellipse cx="114" cy="28" rx="9" ry="5" fill="#ff7aa8" stroke="#a8325a" stroke-width=".8" transform="rotate(-20 114 28)"/>`},
+ {n:'Media cola',m:1,
+  back:c=>`<path d="M66 58 Q64 18 100 18 Q136 18 134 58 L140 190 Q100 200 60 190Z" fill="${c}"/><circle cx="100" cy="12" r="10" fill="${c}"/>`,
+  front:c=>`<path d="M72 62 Q72 28 100 28 Q128 28 128 62 Q116 44 100 42 Q84 44 72 62Z" fill="${c}"/><path d="M70 66 Q60 110 62 170 L74 170 Q74 112 80 72Z M130 66 Q140 110 138 170 L126 170 Q126 112 120 72Z" fill="${c}"/><ellipse cx="100" cy="24" rx="9" ry="3.6" fill="#8f7be6"/>`},
+ {n:'Bob recto',m:1,
+  back:c=>`<path d="M66 58 Q64 18 100 18 Q136 18 134 58 L136 106 L64 106Z" fill="${c}"/>`,
+  front:c=>`<path d="M72 68 L72 40 Q100 22 128 40 L128 68 Q100 58 72 68Z" fill="${c}"/>`}
 ];
 
-const faceSVG=()=>`<g><circle cx="90" cy="62" r="2.8" fill="#2b1b12"/><circle cx="110" cy="62" r="2.8" fill="#2b1b12"/><circle cx="91" cy="61" r=".9" fill="#fff"/><circle cx="111" cy="61" r=".9" fill="#fff"/><path d="M83 55 Q90 51 96 55 M104 55 Q110 51 117 55" stroke="#2b1b12" stroke-width="1.6" fill="none" stroke-linecap="round"/><path d="M94 76 Q100 81 106 76" stroke="#b13a4a" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="84" cy="70" r="4.5" fill="#e5698f" opacity=".35"/><circle cx="116" cy="70" r="4.5" fill="#e5698f" opacity=".35"/></g>`;
-function bodySVG(sk){return `<g fill="${sk}" stroke="${sk}">
-<line x1="68" y1="112" x2="50" y2="190" stroke-width="12" stroke-linecap="round"/><line x1="132" y1="112" x2="150" y2="190" stroke-width="12" stroke-linecap="round"/>
-<circle cx="49" cy="195" r="7" stroke="none"/><circle cx="151" cy="195" r="7" stroke="none"/>
-<line x1="89" y1="205" x2="87" y2="338" stroke-width="17" stroke-linecap="round"/><line x1="111" y1="205" x2="113" y2="338" stroke-width="17" stroke-linecap="round"/>
-<ellipse cx="82" cy="346" rx="14" ry="6" stroke="none"/><ellipse cx="118" cy="346" rx="14" ry="6" stroke="none"/>
-<rect x="92" y="84" width="16" height="26" rx="6" stroke="none"/>
-<path d="M70 104 Q100 98 130 104 L122 170 Q124 190 127 210 L73 210 Q76 190 78 170Z" stroke="none"/>
-<ellipse cx="100" cy="60" rx="26" ry="30" stroke="none"/></g>
-<path d="M78 126 Q100 134 122 126 L120 146 Q100 154 80 146Z M76 192 L124 192 L121 214 Q100 222 79 214Z" fill="#fffaf0" stroke="#d9c9a3" stroke-width="1"/>`;}
-
+const faceSVG=()=>`<g>
+<path d="M80 51 Q88 46 96 50 M104 50 Q112 46 120 51" stroke="#3b2418" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+<ellipse cx="88.5" cy="63" rx="6.4" ry="7.2" fill="#fff"/><ellipse cx="111.5" cy="63" rx="6.4" ry="7.2" fill="#fff"/>
+<circle cx="89" cy="64" r="4.6" fill="#5a3418"/><circle cx="111" cy="64" r="4.6" fill="#5a3418"/>
+<circle cx="89" cy="64" r="2.4" fill="#1d120b"/><circle cx="111" cy="64" r="2.4" fill="#1d120b"/>
+<circle cx="90.8" cy="61.8" r="1.5" fill="#fff"/><circle cx="112.8" cy="61.8" r="1.5" fill="#fff"/>
+<path d="M81.5 61 Q88 54.5 95.5 60.5 M104.5 60.5 Q112 54.5 118.5 61" stroke="#1d120b" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+<path d="M81.5 61 L78.5 58.5 M118.5 61 L121.5 58.5" stroke="#1d120b" stroke-width="1.6" stroke-linecap="round"/>
+<path d="M99 71 Q100 73 101 71" stroke="rgba(120,60,40,.45)" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+<path d="M93.5 77 Q96.5 75 100 76.4 Q103.5 75 106.5 77 Q100 84 93.5 77Z" fill="#e8587f"/>
+<path d="M96 77 Q100 78.6 104 77" stroke="#fff" stroke-width=".8" fill="none" opacity=".6"/>
+<circle cx="82" cy="72" r="5" fill="#ff8aa0" opacity=".32"/><circle cx="118" cy="72" r="5" fill="#ff8aa0" opacity=".32"/></g>`;
+function bodySVG(sk){return `<g fill="${sk}">
+<path d="M72 106 Q60 112 55 140 Q51 165 46 190 L58 193 Q62 166 68 142 Q74 126 78 112Z"/>
+<path d="M128 106 Q140 112 145 140 Q149 165 154 190 L142 193 Q138 166 132 142 Q126 126 122 112Z"/>
+<circle cx="52" cy="197" r="6.5"/><circle cx="148" cy="197" r="6.5"/>
+<path d="M79 205 Q80 270 82 336 L94 336 Q98 270 99 205Z"/>
+<path d="M121 205 Q120 270 118 336 L106 336 Q102 270 101 205Z"/>
+<ellipse cx="86" cy="347" rx="12" ry="6"/><ellipse cx="114" cy="347" rx="12" ry="6"/>
+<path d="M93 82 L93 104 Q100 110 107 104 L107 82Z"/>
+<path d="M70 106 Q100 98 130 106 Q127 140 121 168 Q126 190 128 212 L72 212 Q74 190 79 168 Q73 140 70 106Z"/>
+<circle cx="74" cy="64" r="4.2"/><circle cx="126" cy="64" r="4.2"/>
+<ellipse cx="100" cy="60" rx="26" ry="30"/></g>
+<path d="M80 122 Q100 130 120 122 L119 146 Q100 154 81 146Z M77 192 L123 192 L121 214 Q100 222 79 214Z" fill="#fffaf0" stroke="#d9c9a3" stroke-width="1"/>`;}
 function wornList(st){return Object.keys(st.worn).map(k=>{const [cat,i]=k.split(':');return {cat,i:+i,c:st.worn[k]};});}
 function dollSVG(st,jk){
   const sk=SKIN[st.skin],hc=HAIRC[st.hc],H=HAIRS[st.hair],w=wornList(st);
@@ -417,7 +510,11 @@ function dollSVG(st,jk){
 }
 const headOnly=(st,h)=>`<g>${HAIRS[h].back(HAIRC[st.hc])}<ellipse cx="100" cy="60" rx="26" ry="30" fill="${SKIN[st.skin]}"/><rect x="92" y="84" width="16" height="26" rx="6" fill="${SKIN[st.skin]}"/>${faceSVG()}${HAIRS[h].front(HAIRC[st.hc])}</g>`;
 
-let cat='vestido', era='todas', justWorn=null;
+// Migración: la muñeca arranca con un look de hoy
+const idx=(c,n)=>ITEMS[c].findIndex(it=>it.n===n);
+if(D.v!==3){D.v=3;D.skin=1;D.hair=HAIRS.findIndex(h=>h.n==='Cortina');D.hc=1;D.bg=0;D.pend={};
+  D.worn={['top:'+idx('top','Camiseta oversize')]:'#f4f4f8',['bottom:'+idx('bottom','Jeans anchos')]:'#6f95c9',['zapatos:'+idx('zapatos','Tenis chunky')]:'#f4f4f8',['extra:'+idx('extra','Bolso cruzado')]:'#7a5cff'};}
+let cat='vestido', era='hoy', justWorn=null;
 const ERAS=[['todas','Todas'],['retro','Retro 70s'],['hoy','De hoy']];
 const visible=it=>era==='todas'||it.e==='x'||it.e===(era==='retro'?'r':'h');
 const CATS=[['vestido','Vestidos'],['top','Blusas'],['bottom','Faldas y pantalones'],['zapatos','Zapatos'],['sombrero','Sombreros'],['extra','Extras'],['pelo','Pelo y piel']];
@@ -438,13 +535,13 @@ function drawWardrobe(){
   if(cat==='pelo'){
     el.innerHTML=`<h3>Piel</h3><div class="swatches">${SKIN.map((c,i)=>`<button type="button" style="background:${c}" data-skin="${i}" aria-label="Tono de piel ${i+1}" aria-pressed="${i===D.skin}"></button>`).join('')}</div>
     <h3>Color de pelo</h3><div class="swatches">${HAIRC.map((c,i)=>`<button type="button" style="background:${c}" data-hc="${i}" aria-label="Color de pelo ${i+1}" aria-pressed="${i===D.hc}"></button>`).join('')}</div>
-    <h3>Peinado</h3><div class="items" id="items">${HAIRS.map((h,i)=>`<button type="button" class="item" data-hair="${i}" aria-pressed="${i===D.hair}" style="cursor:pointer"><svg viewBox="34 0 140 124">${headOnly(D,i)}</svg>${h.n}</button>`).join('')}</div>`;
+    <h3>Peinado</h3><div class="items" id="items">${HAIRS.map((h,i)=>({h,i})).sort((a,b)=>(b.h.m?1:0)-(a.h.m?1:0)).map(({h,i})=>`<button type="button" class="item" data-hair="${i}" aria-pressed="${i===D.hair}" style="cursor:pointer"><svg viewBox="34 0 140 124">${headOnly(D,i)}</svg>${h.n}</button>`).join('')}</div>`;
     return;
   }
   const old=$('#items'),sl=old?old.scrollLeft:0,pc=D.pend[cat];
   const chips=`<div class="erachips">${ERAS.map(([k,n])=>`<button type="button" data-era="${k}" aria-pressed="${k===era}">${n}</button>`).join('')}</div>`;
   const sw=`<h3>Color de la prenda</h3><div class="swatches"><button type="button" class="orig" data-color="" aria-pressed="${!pc}">Original</button>${PALETA.map(c=>`<button type="button" style="background:${c}" data-color="${c}" aria-label="Color ${c}" aria-pressed="${c===pc}"></button>`).join('')}</div>`;
-  const items=ITEMS[cat].map((it,i)=>({it,i})).filter(o=>visible(o.it)).map(({it,i})=>{const k=cat+':'+i,on=k in D.worn;return `<button type="button" class="item" data-item="${i}" aria-pressed="${on}" aria-label="${it.n}"><svg viewBox="${VB[cat]}">${it.d(on?D.worn[k]:(pc||it.c))}</svg>${it.n}</button>`;}).join('');
+  const items=ITEMS[cat].map((it,i)=>({it,i})).filter(o=>visible(o.it)).sort((a,b)=>(a.it.e==='r')-(b.it.e==='r')).map(({it,i})=>{const k=cat+':'+i,on=k in D.worn;return `<button type="button" class="item" data-item="${i}" aria-pressed="${on}" aria-label="${it.n}"><svg viewBox="${it.vb||VB[cat]}">${it.d(on?D.worn[k]:(pc||it.c))}</svg>${it.n}</button>`;}).join('');
   el.innerHTML=`<p class="hint">Arrastra cada prenda hasta la muñeca, como las piezas de cartón. También puedes tocarla. Para quitarla, arrástrala fuera de la hoja.</p>${chips}${sw}<h3>Prendas</h3><div class="items" id="items">${items}</div>`;
   $('#items').scrollLeft=sl;
 }
@@ -678,6 +775,7 @@ document.addEventListener('click',e=>{
   if(!t){if(e.target.id==='ficha')$('#ficha').hidden=true;return;}
   const d=t.dataset;
   if(d.main){
+    document.body.classList.toggle('modern',d.main==='doll');
     $$('.maintabs button').forEach(b=>b.setAttribute('aria-selected',String(b===t)));
     $('#main-doll').hidden=d.main!=='doll';$('#main-cromos').hidden=d.main!=='cromos';
     if(d.main==='cromos')tick();
@@ -730,10 +828,10 @@ let ghost=null, dpend=null, suppress=false;
 function mkGhost(c,i,color){
   const r=$('#dollsvg').getBoundingClientRect();
   const sc=Math.min(r.width/200,r.height/370)*.75;
-  const vb=VB[c].split(' ').map(Number);
+  const vb=(ITEMS[c][i].vb||VB[c]).split(' ').map(Number);
   const g=document.createElement('div');g.className='dragghost';
   g.style.width=vb[2]*sc+'px';g.style.height=vb[3]*sc+'px';
-  g.innerHTML=`<svg viewBox="${VB[c]}" width="100%" height="100%" style="overflow:visible">${ITEMS[c][i].d(color)}</svg>`;
+  g.innerHTML=`<svg viewBox="${vb.join(' ')}" width="100%" height="100%" style="overflow:visible">${ITEMS[c][i].d(color)}</svg>`;
   document.body.appendChild(g);return g;
 }
 function moveGhost(x,y){
